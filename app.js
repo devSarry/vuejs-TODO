@@ -3,18 +3,22 @@ new Vue({
     el: '#tasks',
 
     data: {
-        tasks: [],
+        tasks: [{
+            body: 'Enter a task',
+            completed: false
+        }],
         newTask: ''
     },
 
     filters: {
-        inProcess: function(tasks) {
-            return tasks.filter(function(task) {
-                return ! task.completed;
+        inProcess: function (tasks) {
+            console.log("sorting through in process.");
+            return tasks.filter(function (task) {
+                return !task.completed;
             });
         },
 
-        completedProcess: function(tasks) {
+        completedProcess: function (tasks) {
             return tasks.filter(function (task) {
                 return task.completed;
             });
@@ -22,15 +26,15 @@ new Vue({
     },
 
     computed: {
-        tasksCompleted: function() {
+        tasksCompleted: function () {
             return this.tasks.filter(function (task) {
                 return task.completed;
             });
         },
 
-        tasksRemaining: function() {
+        tasksRemaining: function () {
             return this.tasks.filter(function (task) {
-                return ! task.completed;
+                return !task.completed;
             });
         }
 
@@ -40,7 +44,7 @@ new Vue({
         addTask: function (e) {
             e.preventDefault();
 
-            if ( ! this.newTask ) return;
+            if (!this.newTask) return;
 
             this.tasks.push({
                 body: this.newTask,
@@ -51,11 +55,11 @@ new Vue({
         },
 
 
-        removeTask: function(task){
+        removeTask: function (task) {
             this.tasks.$remove(task);
         },
 
-        editTask: function(task) {
+        editTask: function (task) {
             // remove task
             this.removeTask(task);
 
@@ -67,14 +71,23 @@ new Vue({
 
         },
 
-        completeTask: function(task) {
+        completeTask: function (task) {
             task.completed = true;
         },
 
-        completeAll: function() {
-            this.tasks.forEach(function(task) {
-               task.completed = true;
+        completeAll: function () {
+            this.tasks.forEach(function (task) {
+                task.completed = true;
             });
+        },
+
+        clearCompleted: function () {
+            console.log("Trying to clear completed");
+
+            this.tasks = this.tasks.filter(function(task) {
+                return ! task.completed;
+            });
+            console.log("sucess");
         }
     }
 
