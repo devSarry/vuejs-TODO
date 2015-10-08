@@ -1,0 +1,94 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css">
+    <link rel="stylesheet" href="app.css">
+
+    <title>Document</title>
+    <meta name="description" content="Document">
+    <meta name="author" content="Jonathan Sarry">
+
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Vue App - Live reload is working</h1>
+    <hr>
+    <div id="tasks">
+        <div>
+
+            <h2>Tasks <small>({{ tasksRemaining.length }})</small></h2>
+
+            <ol class="list-group">
+                <li v-repeat="task: tasks | inProcess"
+                        class="list-group-item">
+
+                    <span v-on="dblclick: editTask(task)">{{ task.body }}</span>
+
+                    <button v-on="click: removeTask(task)" class="fa fa-times"></button>
+                    <button id="completedButton" v-on="click: completeTask(task)" class="fa fa-check-circle "></button>
+
+                </li>
+
+            </ol>
+
+            <form v-on="submit: addTask">
+                <div class="form-group">
+                    <!--v-model tells vue the data that is bound to this input-->
+                    <!--v-el is a hook or a directive that allows vue to easily access this specific dom node
+                     without having to dive into the dom.-->
+                    <input v-model="newTask"
+                           v-el="newTask"
+
+                           class="form-control"
+                           placeholder="I need to...">
+                </div>
+
+                <button class="btn btn-primary">Add Task</button>
+
+                <button v-on="click: completeAll"
+                        class="btn btn-default">
+                    Mark all as done
+                </button>
+
+            </form>
+
+
+
+            <hr>
+
+            <div v-show="tasksCompleted.length">
+
+                <h2>Completed <small>({{ tasksCompleted.length }})</small></h2>
+
+                <ol class="list-group">
+
+                    <li class="list-group-item"
+                        v-repeat="task: tasks | completedProcess">
+
+                        {{ task.body }}
+
+                    </li>
+
+                </ol>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script src="vun.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

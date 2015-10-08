@@ -1,0 +1,18 @@
+li button {
+    font-weight: bold;
+    background: none;
+    border: 0;
+    color: red;
+    padding: 0px;
+    float: right;
+}
+
+li #completedButton {
+    font-weight: bold;
+    background: none;
+    border: 0;
+    color: green;
+    padding: 0px;
+    float: right;
+
+}
